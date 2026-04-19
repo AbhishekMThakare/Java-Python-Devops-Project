@@ -25,7 +25,7 @@ pipeline {
         stage('Test Python') {
     steps {
         dir('Python_app') {
-            bat '"C:\\Users\\abhis\\AppData\\Local\\Python\\bin\\python.exe" -m pip install -r requirements.txt'
+            bat '"C:\\Users\\abhis\\AppData\\Local\\Python\\bin\\python.exe" -m pip install -r requirement.txt'
             bat '"C:\\Users\\abhis\\AppData\\Local\\Python\\bin\\python.exe" -m pytest'
         }
     }
