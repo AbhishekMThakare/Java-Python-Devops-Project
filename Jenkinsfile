@@ -53,10 +53,18 @@ pipeline {
         }
 
         stage('Push to DockerHub') {
-            steps {
-                bat 'docker push abhishekthakare97/java-app:latest'
-                bat 'docker push abhishekthakare97/python-app:latest'
-            }
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+
+            bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+            bat 'docker push abhishekthakare97/java-app:latest'
+            bat 'docker push abhishekthakare97/python-app:latest'
         }
+    }
+}
     }
 }
