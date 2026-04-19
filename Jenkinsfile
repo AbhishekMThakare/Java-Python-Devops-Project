@@ -5,7 +5,12 @@ pipeline {
         maven 'Maven-3'
     }
 
+    environment {
+        PYTHON = "C:\\Users\\abhis\\AppData\\Local\\Python\\bin\\python.exe"
+    }
+
     stages {
+
         stage('Build Java') {
             steps {
                 dir('Java_app') {
@@ -23,12 +28,35 @@ pipeline {
         }
 
         stage('Test Python') {
-    steps {
-        dir('Python_app') {
-            bat '"C:\\Users\\abhis\\AppData\\Local\\Python\\bin\\python.exe" -m pip install -r requirement.txt'
-            bat '"C:\\Users\\abhis\\AppData\\Local\\Python\\bin\\python.exe" -m pytest'
+            steps {
+                dir('Python_app') {
+                    bat '"%PYTHON%" -m pip install -r requirement.txt'
+                    bat '"%PYTHON%" -m pytest'
+                }
+            }
         }
-    }
-}
+
+        stage('Build Docker Image - Java') {
+            steps {
+                dir('Java_app') {
+                    bat 'docker build -t abhishekthakare97/java-app:latest .'
+                }
+            }
+        }
+
+        stage('Build Docker Image - Python') {
+            steps {
+                dir('Python_app') {
+                    bat 'docker build -t abhishekthakare97/python-app:latest .'
+                }
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                bat 'docker push abhishekthakare97/java-app:latest'
+                bat 'docker push abhishekthakare97/python-app:latest'
+            }
+        }
     }
 }
