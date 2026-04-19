@@ -23,12 +23,12 @@ pipeline {
         }
 
         stage('Test Python') {
-            steps {
-                dir('Python_app') {
-                    bat 'pip install -r requirements.txt'
-                    bat 'pytest'
-                }
-            }
+    steps {
+        dir('Python_app') {
+            bat 'python -m pip install -r requirements.txt'
+            bat 'python -m pytest'
         }
+    }
+    }
     }
 }
