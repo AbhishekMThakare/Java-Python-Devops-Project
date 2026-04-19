@@ -3,16 +3,10 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/AbhishekMThakare/Java-Python-Devops-Project.git'
-            }
-        }
-
         stage('Build Java') {
             steps {
                 dir('java-app') {
-                    sh 'mvn clean package'
+                    bat 'mvn clean package'
                 }
             }
         }
@@ -20,7 +14,7 @@ pipeline {
         stage('Test Java') {
             steps {
                 dir('java-app') {
-                    sh 'mvn test'
+                    bat 'mvn test'
                 }
             }
         }
@@ -28,8 +22,8 @@ pipeline {
         stage('Test Python') {
             steps {
                 dir('python-app') {
-                    sh 'pip install -r requirements.txt'
-                    sh 'pytest'
+                    bat 'pip install -r requirements.txt'
+                    bat 'pytest'
                 }
             }
         }
