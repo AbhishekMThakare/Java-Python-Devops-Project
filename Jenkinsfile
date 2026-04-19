@@ -59,10 +59,13 @@ pipeline {
             usernameVariable: 'DOCKER_USER',
             passwordVariable: 'DOCKER_PASS'
         )]) {
-
-            bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
-            bat 'docker push abhishekthakare97/java-app:latest'
-            bat 'docker push abhishekthakare97/python-app:latest'
+            bat """
+            docker logout
+            echo %DOCKER_PASS%> pass.txt
+            docker login -u %DOCKER_USER% --password-stdin < pass.txt
+            docker push abhishekthakare97/java-app:latest
+            docker push abhishekthakare97/python-app:latest
+            """
         }
     }
 }
