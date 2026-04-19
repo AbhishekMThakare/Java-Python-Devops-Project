@@ -1,8 +1,11 @@
 pipeline {
     agent any
 
-    stages {
+    tools {
+        maven 'Maven-3'
+    }
 
+    stages {
         stage('Build Java') {
             steps {
                 dir('java-app') {
