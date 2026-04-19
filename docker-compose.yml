@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  java-app:
+    image: abhishekthakare97/java-app:latest
+    container_name: java-container
+    ports:
+      - "8080:8080"
+    restart: always
+
+  python-app:
+    image: abhishekthakare97/python-app:latest
+    container_name: python-container
+    ports:
+      - "5000:5000"
+    restart: always
