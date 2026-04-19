@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build Java') {
             steps {
-                dir('java-app') {
+                dir('Java_app') {
                     bat 'mvn clean package'
                 }
             }
@@ -16,7 +16,7 @@ pipeline {
 
         stage('Test Java') {
             steps {
-                dir('java-app') {
+                dir('Java_app') {
                     bat 'mvn test'
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Test Python') {
             steps {
-                dir('python-app') {
+                dir('Python_app') {
                     bat 'pip install -r requirements.txt'
                     bat 'pytest'
                 }
